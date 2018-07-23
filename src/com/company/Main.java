@@ -1,45 +1,52 @@
 package com.company;
 
 import java.util.Scanner;
+import java.util.Stack;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        String str;
-        int count1 = 0;
-        int count2 = 0;
 
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter parentheses, brackets and braces : ");
-        str = scanner.next();
+        String str = scanner.nextLine();
 
+
+        Stack<Character> stack = new Stack<>();
+        boolean isBalanced = true;
 
         for (int i = 0; i < str.length(); i++) {
-            if (str.charAt(i) == '(') {
-                count1++;
-            } else if (str.charAt(i) == ')') {
-                count1--;
-            }
-            if (str.charAt(i) == '[') {
-                count2++;
-            } else if (str.charAt(i) == ']') {
-                count2--;
-            }
-            if (str.charAt(i) == '{') {
-                count2++;
-            } else if (str.charAt(i) == '}') {
-                count2--;
-            }
+            char bracket = str.charAt(i);
+            if (bracket == '{' || bracket == '[' || bracket == '(') {
+                stack.push(bracket);
+            } else {
+                if (bracket == '}') {
+                    bracket = '{';
+                } else if (bracket == ')') {
+                    bracket = '(';
+                } else if (bracket == ']') {
+                    bracket = '[';
+                }
 
+                if (stack.empty()) {
+                    isBalanced = false;
+                    break;
+                }
+
+                if (bracket == stack.peek()) {
+                    stack.pop();
+                } else {
+                    isBalanced = false;
+                    break;
+                }
+            }
         }
-
-        if ((count1 == 0) && (count2 == 0)) {
+        if (isBalanced) {
             System.out.println("is balanced");
         } else {
             System.out.println("is not balanced");
         }
     }
-
 }
 
