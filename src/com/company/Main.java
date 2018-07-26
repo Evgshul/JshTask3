@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.ArrayDeque;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -13,7 +14,7 @@ public class Main {
         String str = scanner.nextLine();
 
 
-        Stack<Character> stack = new Stack<>();
+        ArrayDeque<Character> stack = new ArrayDeque<>();
         boolean isBalanced = true;
 
         for (int i = 0; i < str.length(); i++) {
@@ -29,7 +30,7 @@ public class Main {
                     bracket = '[';
                 }
 
-                if (stack.empty()) {
+                if (stack.isEmpty()) {
                     isBalanced = false;
                     break;
                 }
